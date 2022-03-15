@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body {
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+}
+#pagination {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+  max-width: 1200px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
