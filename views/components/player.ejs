@@ -1,8 +1,8 @@
-<h1><%- id %></h1>
 <div id="player" class="container">
-  <video width="1200" height="600" controls src="/serial/<%= id %>.mkv"></video>
+  <video width="1000" height="500" type="<%- type %>" controls src="<%- videoLink %>"></video>
 </div>
 <div id="pagination">
-  <a href="<%- prev %>"><<</a>
-  <a href="<%- next %>">>></a>
+  <%- prev !== 0 ? include('./prevButton') : include('./emptyButton'); %>
+  <br />
+  <%- next !== 0 ? include('./nextButton') : include('./emptyButton'); %>
 </div>

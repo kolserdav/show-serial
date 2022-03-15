@@ -1,10 +1,11 @@
 // @ts-check
 const express = require('express');
-const path = require('path');
+const mime = require('mime-types');
+const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { SERIAL_PATH } = process.env;
+const { SERIAL_PATH, NODE_ENV } = process.env;
 
 const app = express();
 
@@ -18,16 +19,53 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'home' });
 });
 
+const dir = fs.readdirSync(SERIAL_PATH);
+
+/**
+ * @type {{
+ *  [key: number]: string;
+ * }}
+ */
+const dirObj = {};
+for (let i = 1; dir[i]; i++) {
+  const r = dir.find((item) => new RegExp(`^${i}`).test(item));
+  if (!r) {
+    console.warn(`Series with number ${i} is not found`);
+    continue;
+  }
+  dirObj[i] = r;
+}
+
 app.get('/:id', function (req, res) {
   const { params } = req;
   const { id } = params;
   let seriesNum = parseInt(id, 10);
   seriesNum = Number.isNaN(seriesNum) ? 1 : seriesNum;
-  const prev = seriesNum - 1;
-  const next = seriesNum + 1;
-  res.render('index', { id, prev, next, title: 'player' });
+  const series = dirObj[seriesNum];
+  if (!series) {
+    res.status(404).render('index', { title: '404' });
+  }
+  const prev = dirObj[seriesNum - 1] ? seriesNum - 1 : 0;
+  const next = dirObj[seriesNum + 1] ? seriesNum + 1 : 0;
+  const ext = dirObj[seriesNum].match(/\.\w+$/);
+  const _ext = ext ? ext[0] : null;
+  const type = mime.lookup(_ext || '');
+  res.render('index', {
+    id,
+    prev,
+    next,
+    type,
+    title: 'player',
+    videoLink: `/serial/${dirObj[seriesNum]}`,
+  });
 });
 
 app.use('/serial', express.static(SERIAL_PATH));
 
-app.listen(80);
+const nodeEnv = NODE_ENV || '';
+const prod = nodeEnv.trim() === 'production';
+const port = prod ? 80 : 8080;
+
+app.listen(port, () => {
+  console.info(`Listen at http://localhost:${port}`);
+});

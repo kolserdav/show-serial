@@ -4,12 +4,19 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ${npm_package_main}",
-    "dev": "nodemon ${npm_package_main}"
+    "start": "NODE_ENV=production node ${npm_package_main}",
+    "start:win": "set NODE_ENV=production && node index.js",
+    "dev": "nodemon -e ejs -w views ${npm_package_main}"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "ejs": "javascript"
+    }
   },
   "dependencies": {
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "mime-types": "^2.1.35"
   }
 }
