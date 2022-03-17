@@ -27,14 +27,16 @@ const dir = fs.readdirSync(SERIAL_PATH);
  * }}
  */
 const dirObj = {};
-for (let i = 1; dir[i]; i++) {
+let i = 0;
+do {
+  i++;
   const r = dir.find((item) => new RegExp(`^${i}`).test(item));
   if (!r) {
     console.warn(`Series with number ${i} is not found`);
     continue;
   }
   dirObj[i] = r;
-}
+} while (dir[i]);
 
 app.get('/:id', function (req, res) {
   const { params } = req;
