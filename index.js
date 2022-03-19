@@ -5,7 +5,7 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { SERIAL_PATH, NODE_ENV } = process.env;
+const { SERIAL_PATH, NODE_ENV, HOST } = process.env;
 
 const app = express();
 
@@ -69,5 +69,5 @@ const prod = nodeEnv.trim() === 'production';
 const port = prod ? 80 : 8080;
 
 app.listen(port, () => {
-  console.info(`Listen at http://localhost:${port}`);
+  console.info(`Listen at ${HOST}:${port} ...`);
 });
