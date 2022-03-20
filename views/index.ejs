@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= typeof id !== 'undefined' ? id : title %></title>
     <link rel="stylesheet" href="/public/css/styles.css" />
+    <script type="module" src="/public/js/index.js"></script>
   </head>
   <body class="container">
     <%- title === 'home' ? include('./components/home') : title !== '404' ?

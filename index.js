@@ -2,9 +2,15 @@
 const express = require('express');
 const mime = require('mime-types');
 const fs = require('fs');
+const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const publicPath = path.resolve(__dirname, '../public');
+
+/**
+ * @type {any}
+ */
 const { SERIAL_PATH, NODE_ENV, HOST } = process.env;
 
 const app = express();
