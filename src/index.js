@@ -5,7 +5,11 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 dotenv.config();
 
+/**
+ * @type {any}
+ */
 const { SERIAL_PATH, NODE_ENV, HOST } = process.env;
+const COOKIE_NAME = 'seriesNum';
 
 const app = express();
 
