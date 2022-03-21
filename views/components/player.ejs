@@ -1,5 +1,12 @@
 <div id="player" class="container">
-  <video width="1000" height="500" type="<%- type %>" controls src="<%- videoLink %>"></video>
+  <video
+    width="1000"
+    height="500"
+    type="<%- type %>"
+    controls
+    src="<%- videoLink %>"
+    srclang="en"
+  ></video>
 </div>
 <div id="pagination">
   <%- prev !== 0 ? include('./prevButton') : include('./emptyButton'); %>
