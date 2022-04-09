@@ -9,7 +9,8 @@
     <script type="module" src="/public/js/index.js"></script>
   </head>
   <body class="container">
-    <%- title === 'home' ? include('./components/home') : title !== '404' ?
-    include('./components/player') : include('./components/404'); %>
+    <%- title === 'home' ? include('./components/home') : title !== '404' && title !== 'films' ?
+    include('./components/player') : title === 'films' ? include('./components/films') :
+    include('./components/404'); %>
   </body>
 </html>

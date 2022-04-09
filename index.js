@@ -11,7 +11,7 @@ const publicPath = path.resolve(__dirname, '../public');
 /**
  * @type {any}
  */
-const { SERIAL_PATH, NODE_ENV, HOST } = process.env;
+const { SERIAL_PATH, NODE_ENV, HOST, FILMS_PATH } = process.env;
 
 const app = express();
 
@@ -44,6 +44,19 @@ do {
   dirObj[i] = r;
 } while (dir[i]);
 
+app.get('/films', (req, res) => {
+  const films = fs.readdirSync(FILMS_PATH);
+  res.render('index', {
+    title: 'films',
+    videoLinks: films.map((item) => {
+      const ext = item.match(/\.\w+$/);
+      const _ext = ext ? ext[0] : null;
+      const type = mime.lookup(_ext || '');
+      return { src: `/film/${item}`, type };
+    }),
+  });
+});
+
 app.get('/:id', function (req, res) {
   const { params } = req;
   const { id } = params;
@@ -69,6 +82,7 @@ app.get('/:id', function (req, res) {
 });
 
 app.use('/serial', express.static(SERIAL_PATH));
+app.use('/film', express.static(FILMS_PATH));
 
 const nodeEnv = NODE_ENV || '';
 const prod = nodeEnv.trim() === 'production';

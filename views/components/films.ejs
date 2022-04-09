@@ -1,0 +1,13 @@
+<div id="player" class="container">
+  <% for(var i=0; i<videoLinks.length; i++) {%>
+    <h1><%- videoLinks[i].src %></h1>
+    <video
+      width="1000"
+      height="500"
+      type="<%- videoLinks[i].type %>"
+      controls
+      src="<%- videoLinks[i].src %>"
+      srclang="en"
+    ></video>
+  <% } %>
+</div>
