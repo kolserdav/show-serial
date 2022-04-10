@@ -6,8 +6,6 @@ const path = require('path');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const publicPath = path.resolve(__dirname, '../public');
-
 /**
  * @type {any}
  */
@@ -44,6 +42,9 @@ do {
   dirObj[i] = r;
 } while (dir[i]);
 
+/**
+ * Other films
+ */
 app.get('/films', (req, res) => {
   const films = fs.readdirSync(FILMS_PATH);
   res.render('index', {
@@ -57,6 +58,9 @@ app.get('/films', (req, res) => {
   });
 });
 
+/**
+ * One series
+ */
 app.get('/:id', function (req, res) {
   const { params } = req;
   const { id } = params;
