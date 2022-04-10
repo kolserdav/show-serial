@@ -9,6 +9,7 @@ const COOKIE_NAME = 'lastWatchSeriesNum';
  */
 function saveSeries() {
   const { pathname } = window.location;
+  const pathNum = parseInt(pathname.replace('/', ''), 10);
   if (window.location.pathname === '/') {
     const lastSeries = window.localStorage.getItem(COOKIE_NAME);
     if (!lastSeries) {
@@ -24,7 +25,7 @@ function saveSeries() {
     a.href = lastSeries;
     a.setAttribute('style', 'margin-top: 1rem;');
     home.appendChild(a);
-  } else {
+  } else if (!Number.isNaN(pathNum)) {
     window.localStorage.setItem(COOKIE_NAME, pathname);
   }
   return 0;
