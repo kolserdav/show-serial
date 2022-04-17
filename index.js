@@ -34,7 +34,7 @@ const dirObj = {};
 let i = 0;
 do {
   i++;
-  const r = dir.find((item) => new RegExp(`^${i}`).test(item));
+  const r = dir.find((item) => new RegExp(`^${i}\.`).test(item));
   if (!r) {
     console.warn(`Series with number ${i} is not found`);
     continue;
