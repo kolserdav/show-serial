@@ -93,13 +93,13 @@ const prod = nodeEnv.trim() === 'production';
 const port = prod ? 80 : 8080;
 
 app.listen(port, () => {
-  let host = '';
+  let host = 'http://';
   networkInterfaces().Ethernet?.every((item) => {
     if (item.family === 'IPv4') {
-      host = item.address;
+      host += item.address;
       return false;
     }
     return true;
   });
-  console.info(`Listen at http://${host}:${port} ...`);
+  console.info(`Listen at ${host}:${port} ...`);
 });
