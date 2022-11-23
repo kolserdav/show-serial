@@ -9,7 +9,7 @@ dotenv.config();
 /**
  * @type {any}
  */
-const { SERIAL_PATH, NODE_ENV, HOST, FILMS_PATH } = process.env;
+const { SERIAL_PATH, NODE_ENV, FILMS_PATH } = process.env;
 
 const app = express();
 
@@ -93,5 +93,5 @@ const prod = nodeEnv.trim() === 'production';
 const port = prod ? 80 : 8080;
 
 app.listen(port, () => {
-  console.info(`Listen at ${HOST}:${port} ...`);
+  console.info(`Listen at port: ${port} ...`);
 });
