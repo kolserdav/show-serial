@@ -3,6 +3,7 @@ const express = require('express');
 const mime = require('mime-types');
 const fs = require('fs');
 const dotenv = require('dotenv');
+const { networkInterfaces } = require('os');
 dotenv.config();
 
 /**
@@ -92,5 +93,13 @@ const prod = nodeEnv.trim() === 'production';
 const port = prod ? 80 : 8080;
 
 app.listen(port, () => {
-  console.info(`Listen at port: ${port} ...`);
+  let host = '';
+  networkInterfaces().Ethernet?.every((item) => {
+    if (item.family === 'IPv4') {
+      host = item.address;
+      return false;
+    }
+    return true;
+  });
+  console.info(`Listen at http://${host}:${port} ...`);
 });
