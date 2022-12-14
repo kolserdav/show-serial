@@ -9,7 +9,7 @@ dotenv.config();
 /**
  * @type {any}
  */
-const { SERIAL_PATH, NODE_ENV, FILMS_PATH } = process.env;
+const { SERIAL_PATH, NODE_ENV, FILMS_PATH, NAME_PREFIX, NAME_POSTFIX } = process.env;
 
 const app = express();
 
@@ -34,7 +34,8 @@ const dirObj = {};
 let i = 0;
 do {
   i++;
-  const r = dir.find((item) => new RegExp(`^${process.env.NAME_PREFIX}${i}\.`).test(item));
+  const reg = new RegExp(`^${NAME_PREFIX}0{0,2}${i}\.`);
+  const r = dir.find((item) => reg.test(item));
   if (!r) {
     console.warn(`Series with number ${i} is not found`);
     continue;
